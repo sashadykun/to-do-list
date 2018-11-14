@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 class AddItem extends Component {
     state = {
@@ -19,7 +20,13 @@ class AddItem extends Component {
 
     render(){
         return  (
-            <form onSubmit = { this.handleAddingItem }>
+            <div>
+                <h1 className="center">Add todo item</h1>
+                <div className="row">
+                    <div className="col s12 right-align"></div>
+                    <Link to="/" className="btn green ddarken-2">Back To List</Link>
+                </div>
+                <form onSubmit = { this.handleAddingItem }>
                 <div className="row">
                     <div className="input-field col s8 offset-s2">
                         <input 
@@ -47,6 +54,7 @@ class AddItem extends Component {
                     
                 </div>
             </form>
+            </div>
          );
     }
 }
