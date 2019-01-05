@@ -6,12 +6,11 @@ import{Route} from 'react-router-dom';
 import axios from 'axios';
 import List from './list';
 import AddItem from './add_item';
+import ItemView from './item_view';
+import { BASE_URL, API_KEY } from '../helpers/common';
 // import listData from '../dummy_data/list';
 // import { randomString } from '../helpers';
 
-
-const BASE_URL = 'http://api.reactprototypes.com/todos';
-const API_KEY = '?key=sashakey_demo';
 
 class App extends Component{
     constructor(props){
@@ -106,15 +105,16 @@ class App extends Component{
             <div>
                 <div className="container">
 
-                    <Route exact path ="/" render={()=>{
-                        return <List delete={this.deleteItem} data={list} error={error}/>
+                    <Route exact path ="/" render={(props)=>{
+                        return <List delete={this.deleteItem} data={list} error={error} {...props}/>
                     }}/>
 
-                    <Route path ="/add-item" render={() => {
-                        return <AddItem add= {this.addItem }/>
+                    <Route path ="/add-item" render={(rouringProps) => {
+                        
+                        return <AddItem add= {this.addItem } {...rouringProps}/>
                     }}/>
                     
-                    
+                    <Route path="/item/:item_id" component={ItemView}/>
                 </div>
          </div>
         );

@@ -19,6 +19,7 @@ class AddItem extends Component {
     }
 
     render(){
+        console.log('Add item props', this.props);
         return  (
             <div>
                 <h1 className="center">Add todo item</h1>

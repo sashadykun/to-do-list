@@ -11,10 +11,11 @@ class List extends Component {
         }       
         
         const listElements = this.props.data.map((item, index) => {
+            console.log()
             return (
                 <li className="collection-item" key={item._id}>
                     <div className="col s8">
-                        {item.title}
+                        <Link to={`/item/${item._id}`}>{item.title}</Link>
                     </div>
                     <div className="col s4 right-align">
                         <button onClick={() => {this.props.delete(item._id) }} className="btn red darken-2">Delete</button>
