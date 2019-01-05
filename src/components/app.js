@@ -2,15 +2,15 @@ import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize';
 import '../assets/css/app.css';
 import React, { Component } from 'react';
+import{Route} from 'react-router-dom';
 import axios from 'axios';
 import List from './list';
 import AddItem from './add_item';
+import ItemView from './item_view';
+import { BASE_URL, API_KEY } from '../helpers/common';
 // import listData from '../dummy_data/list';
-import { randomString } from '../helpers';
+// import { randomString } from '../helpers';
 
-
-const BASE_URL = 'http://api.reactprototypes.com/todos';
-const API_KEY = '?key=sashakey_demo';
 
 class App extends Component{
     constructor(props){
@@ -23,7 +23,7 @@ class App extends Component{
 }
     deleteItem = async (id) => {
         
-        console.log('delete:', id);
+        
 
         //'http://api.reactprototypes.com/todos'5be4a7b7d2af63260da32ac3?key=c718_demouser';
         const resp = await axios.delete(`${BASE_URL}/${id + API_KEY}`);
@@ -43,7 +43,7 @@ class App extends Component{
     addItem = async (item) => {
 
         const resp = await axios.post(BASE_URL + API_KEY, item);
-        console.log('Add item Resp:', resp)
+        
 
         this.getListData();
 
@@ -100,18 +100,21 @@ class App extends Component{
     
     render(){ 
         const {error, list } = this.state;
-        console.log('list:', list)
+        
         return (
             <div>
                 <div className="container">
-                    <h1 className="center">To Do List</h1>
-            
-                    <AddItem add= {this.addItem }/>
-                    {
-                        error 
-                            ? <h1 className="center red-text">{error}</h1>
-                            : <List delete={this.deleteItem} data= {this.state.list}/>
-                    }
+
+                    <Route exact path ="/" render={(props)=>{
+                        return <List delete={this.deleteItem} data={list} error={error} {...props}/>
+                    }}/>
+
+                    <Route path ="/add-item" render={(rouringProps) => {
+                        
+                        return <AddItem add= {this.addItem } {...rouringProps}/>
+                    }}/>
+                    
+                    <Route path="/item/:item_id" component={ItemView}/>
                 </div>
          </div>
         );

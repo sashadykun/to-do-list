@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 
 class List extends Component {
 
     render(){
+
+        if(this.props.error) {
+            return <h1 className="center red-text">{this.props.error}</h1>
+        }       
         
         const listElements = this.props.data.map((item, index) => {
+            console.log()
             return (
                 <li className="collection-item" key={item._id}>
                     <div className="col s8">
-                        {item.title}
+                        <Link to={`/item/${item._id}`}>{item.title}</Link>
                     </div>
                     <div className="col s4 right-align">
                         <button onClick={() => {this.props.delete(item._id) }} className="btn red darken-2">Delete</button>
@@ -19,9 +25,17 @@ class List extends Component {
             });
 
         return (
-            <ul className="collection">
-                {listElements}
-            </ul>
+           <div>
+               <h1 className="center">To Do List</h1>
+               <div className="row">
+                   <div className="col s12 right-align">
+                       <Link to="/add-item" className="btn green ddarken-2">Add Item</Link>
+                   </div>
+               </div>
+                <ul className="collection">
+                    {listElements}
+                </ul>
+           </div>
         );
     }
 }
